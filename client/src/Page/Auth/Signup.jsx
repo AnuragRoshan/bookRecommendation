@@ -4,7 +4,7 @@ import "../../Styles/login.css";
 const Signup = () => {
   const [formData, setFormData] = useState({
     name: "",
-    email: "",
+    username: "",
     age: "",
     password: "",
     selectedGenres: [],
@@ -75,7 +75,7 @@ const Signup = () => {
             type="text"
             placeholder="Email"
             value={formData.email}
-            onChange={(e) => handleInputChange("email", e.target.value)}
+            onChange={(e) => handleInputChange("username", e.target.value)}
           />
           <input
             type="number"
