@@ -1,0 +1,103 @@
+.login-top {
+  padding-top: 4rem;
+  height: 100vh;
+  background-image: url("https://img.freepik.com/free-vector/hand-drawn-world-book-day-background_23-2149334624.jpg?w=996&t=st=1703793178~exp=1703793778~hmac=5590f6d3d817f27dbe7179e722b1dbe939ead2a8b7a598d4c8189ba05688f1b5");
+  width: 100%;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  display: flex;
+  justify-content: left;
+  align-items: center;
+}
+
+.login-inner-top {
+  height: max-content;
+  padding: 1rem;
+  width: 30%;
+  margin-left: 10%;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  background-color: white;
+  border-radius: 1rem;
+}
+.signup-inner-top {
+  height: max-content;
+  padding: 1rem;
+  width: 30%;
+  margin-left: 10%;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  background-color: white;
+  border-radius: 1rem;
+}
+
+.login-head {
+  font-family: Montserrat;
+  padding: 1rem;
+  font-size: 2rem;
+  font-weight: 600;
+}
+
+.login-input-detail {
+  padding-inline: 1rem;
+}
+.login-input-detail input {
+  width: 95%;
+  display: flex;
+  font-family: Montserrat;
+  text-decoration: none;
+  border: 1px solid grey;
+  /* border-top: 1px solid grey; */
+  font-size: 1.3rem;
+  /* border-left: none;
+  border-right: none; */
+  padding: 0.4rem;
+  /* border: none; */
+  /* box-shadow: 0 0 10px rgba(0, 0, 0, 0.2); */
+  margin-block-start: 1.5rem;
+}
+.login-input-detail select {
+  width: 95%;
+  display: flex;
+  font-family: Montserrat;
+  text-decoration: none;
+  border: 1px solid grey;
+  /* border-top: 1px solid grey; */
+  font-size: 1.3rem;
+  /* border-left: none;
+  border-right: none; */
+  padding: 0.4rem;
+  /* border: none; */
+  /* box-shadow: 0 0 10px rgba(0, 0, 0, 0.2); */
+  margin-block-start: 1.5rem;
+}
+
+.login-input-detail button {
+  margin-block-start: 2rem;
+  padding-block: 0.5rem;
+  padding-inline: 0.8rem;
+  font-family: Montserrat;
+  width: max-content;
+  font-size: 1.3rem;
+  background-color: #e1d5fd;
+  border: none;
+  /* box-shadow: 0 0 10px rgba(0, 0, 0, 0.2); */
+  cursor: pointer;
+}
+button:hover {
+  background-color: #c2b0f6;
+}
+
+input:focus {
+  outline: none;
+}
+
+.login-link-signup {
+  margin-block-start: 1rem;
+  font-family: Montserrat;
+  font-size: 1rem;
+  font-weight: 600;
+}
+
+.selected-genre {
+  margin: 1rem;
+}

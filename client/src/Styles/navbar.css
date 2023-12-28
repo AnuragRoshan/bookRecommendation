@@ -1,0 +1,27 @@
+.nav-top {
+  width: 100%;
+  height: 4rem;
+  display: flex;
+  position: fixed;
+  justify-content: center;
+  background-color: white;
+  align-items: center;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  font-family: Montserrat;
+}
+
+.nav-top div {
+  margin-left: 2rem;
+  font-size: 1.1rem;
+  cursor: pointer;
+  padding: 0.5rem;
+  border-radius: 1rem;
+}
+
+/* Add hover styles for the div elements */
+.nav-top div:hover {
+  background-color: #e0e0e0;
+}
+.nav-active {
+  background-color: #e0e0e0;
+}
