@@ -1,8 +1,8 @@
 import { createSlice, nanoid } from "@reduxjs/toolkit";
 
 const initialState = {
-    users: { name: "Anurag", email: "anuragraushan373@gmail.com", phone: "8210003603" }, // Initialize users as null when no user is logged in
-    userStatus: true,
+    users: {}, // Initialize users as null when no user is logged in
+    userStatus: false,
 };
 
 export const userSlice = createSlice({
@@ -13,7 +13,8 @@ export const userSlice = createSlice({
             const newUser = {
                 id: nanoid(),
                 name: action.payload.name,
-                // other user properties...
+                email: action.payload.email,
+                phone: action.payload.phone,
             };
 
             // If there were no users (users is null), initialize the users object

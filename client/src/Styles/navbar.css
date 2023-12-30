@@ -4,10 +4,11 @@
   display: flex;
   position: fixed;
   justify-content: center;
-  background-color: white;
+  background-color: rgb(255, 253, 232);
   align-items: center;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
   font-family: Montserrat;
+  z-index: 1;
 }
 
 .nav-top div {
@@ -24,4 +25,8 @@
 }
 .nav-active {
   background-color: #e0e0e0;
+}
+
+i {
+  margin-right: 0.4rem;
 }

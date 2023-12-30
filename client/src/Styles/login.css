@@ -1,7 +1,7 @@
 .login-top {
   padding-top: 4rem;
   height: 100vh;
-  background-image: url("https://img.freepik.com/free-vector/hand-drawn-world-book-day-background_23-2149334624.jpg?w=996&t=st=1703793178~exp=1703793778~hmac=5590f6d3d817f27dbe7179e722b1dbe939ead2a8b7a598d4c8189ba05688f1b5");
+  background-image: url("https://img.freepik.com/free-vector/hand-drawn-world-book-day-background_23-2149334624.jpg?w=996&t=st=1703841570~exp=1703842170~hmac=9706d1e465cd0d74aae2b3f72fbc544ee312670dd2b9a1368d3d2bea6da05878");
   width: 100%;
   background-size: cover;
   background-repeat: no-repeat;
@@ -35,6 +35,7 @@
   padding: 1rem;
   font-size: 2rem;
   font-weight: 600;
+  text-align: center;
 }
 
 .login-input-detail {
@@ -56,7 +57,7 @@
   margin-block-start: 1.5rem;
 }
 .login-input-detail select {
-  width: 95%;
+  width: 99%;
   display: flex;
   font-family: Montserrat;
   text-decoration: none;
@@ -96,8 +97,10 @@ input:focus {
   font-family: Montserrat;
   font-size: 1rem;
   font-weight: 600;
+  text-align: center;
 }
 
 .selected-genre {
   margin: 1rem;
+  cursor: pointer;
 }

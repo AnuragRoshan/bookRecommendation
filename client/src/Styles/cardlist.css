@@ -1,0 +1,108 @@
+body {
+  background-color: rgba(255, 255, 0, 0.297);
+}
+.cards-top {
+  height: max-content;
+  background-image: url("https://img.freepik.com/premium-vector/set-hand-drawn-book-doodle-elements_253081-8.jpg");
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  margin-block: 2rem;
+  position: relative;
+  margin-inline: 2rem;
+  border-radius: 3rem;
+}
+.cards-top::before {
+  content: "";
+  border-radius: 3rem;
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 0;
+  background-color: var(--primary-color);
+}
+
+.cards-inner-top {
+  position: relative;
+  padding-block-start: 5rem;
+  /* padding-inline: 4rem; */
+  font-family: Montserrat;
+}
+
+.cards-head {
+  padding-inline: 2rem;
+  font-size: 2.5rem;
+  color: #242424;
+  font-weight: 600;
+}
+
+.book-list {
+  margin-block-start: 2rem;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+  padding: 1rem;
+  /* border-radius: 3rem; */
+}
+
+.book-list > * {
+  /* flex: 1; */
+  margin-block: 1rem;
+  margin-left: 10px;
+  height: max-content;
+  width: 24%;
+  position: relative;
+}
+
+.book-img {
+  display: flex;
+  justify-content: center;
+}
+
+.book-img img {
+  width: 80%;
+  height: 18rem;
+  padding: 0.5rem;
+}
+
+.book-list-item {
+  box-shadow: 5px 5px 0px #000000;
+  transition: 800ms;
+  height: auto;
+  border-radius: 1rem;
+  margin-block: 1rem;
+  background-color: white;
+}
+.book-list-item:hover {
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  border: none;
+  transition: 800ms;
+}
+
+.book-detail > * {
+  padding-block: 0.3rem;
+  padding-inline: 0.5rem;
+}
+
+.book-name {
+  font-size: 1.2rem !important;
+  text-align: center;
+}
+
+.book-author {
+  font-size: 1rem;
+  text-align: center;
+  font-weight: 600;
+  color: grey;
+}
+.book-genre {
+  font-size: 1rem;
+  text-align: center;
+  font-weight: 600;
+  color: #242424;
+}
+
+.book-save {
+  border-bottom: 1px solid transparent;
+}

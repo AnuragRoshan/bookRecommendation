@@ -1,0 +1,45 @@
+.book-detail {
+  height: max-content;
+  /* background-color: grey; */
+  /* border-bottom: 1px solid grey; */
+}
+
+.book-inner-detail {
+  width: 80%;
+  margin: auto;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+}
+.book-image {
+  text-align: center;
+  margin-block-start: 1rem;
+}
+
+.book-image img {
+  /* height: 60%; */
+  width: 30%;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  border-radius: 1rem;
+}
+
+.book-info {
+  text-align: center;
+  font-family: Montserrat;
+}
+.book-info > * {
+  margin-block-start: 1rem;
+}
+
+.book-name {
+  font-size: 2rem;
+}
+.book-author {
+  font-size: 1.3rem;
+}
+.book-genre {
+  font-size: 1.1rem;
+}
+.book-rating {
+  font-size: 1.1rem;
+}

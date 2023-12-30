@@ -1,5 +1,7 @@
 import React, { useState } from "react";
+import { Link } from "react-router-dom";
 import "../Styles/navbar.css";
+import { addUser } from "../Features/userSlice";
 import { useSelector, useDispatch } from "react-redux";
 import {
   selectUserStatus,
@@ -8,29 +10,49 @@ import {
 } from "../Features/userSlice"; // Update the path accordingly
 
 const Navbar = (props) => {
-  const [activeNavItem, setActiveNavItem] = useState("home");
+  const [activeNavItem, setActiveNavItem] = useState("");
   const userStatus = useSelector(selectUserStatus);
   const users = useSelector(selectUsers);
   const dispatch = useDispatch();
 
   const handleNavItemClick = (navItem) => {
     setActiveNavItem(navItem);
+
+    // Check if the clicked item is "login" or "logout" and dispatch the action accordingly
+    if (navItem === "login") {
+      // Assuming you have the user data available, replace this with your actual user data
+      const userData = {
+        name: "Anurag",
+        email: "anuragraushan373@gmail.com",
+        phone: "8210003603",
+      };
+      dispatch(addUser(userData));
+    } else if (navItem === "logout") {
+      dispatch(removeUser());
+    }
   };
 
   return (
     <div className="nav-top">
-      <div
-        className={`nav-item ${activeNavItem === "home" ? "nav-active" : ""}`}
-        onClick={() => handleNavItemClick("home")}
-      >
-        <i className="fa-solid fa-house"></i>Home
-      </div>
-      <div
-        className={`nav-item ${activeNavItem === "likes" ? "nav-active" : ""}`}
-        onClick={() => handleNavItemClick("likes")}
-      >
-        <i className="fa-solid fa-heart"></i>Likes
-      </div>
+      <Link to={`/`}>
+        <div
+          className={`nav-item ${activeNavItem === "home" ? "nav-active" : ""}`}
+          onClick={() => handleNavItemClick("home")}
+        >
+          <i className="fa-solid fa-house"></i>Home
+        </div>
+      </Link>
+
+      <Link to={`/likes`}>
+        <div
+          className={`nav-item ${
+            activeNavItem === "likes" ? "nav-active" : ""
+          }`}
+          onClick={() => handleNavItemClick("likes")}
+        >
+          <i className="fa-solid fa-heart"></i>Likes
+        </div>
+      </Link>
       {userStatus ? (
         <>
           <div
@@ -39,17 +61,25 @@ const Navbar = (props) => {
             }`}
             onClick={() => handleNavItemClick("profile")}
           >
-            <i className="fa-solid fa-user"></i>Profile
+            <i className="fa-solid fa-user"></i>
+            Profile
           </div>
-          <div>
+          <div onClick={() => handleNavItemClick("logout")}>
             <i class="fa-solid fa-right-from-bracket"></i>Logout
           </div>
         </>
       ) : (
         <>
-          <div>
-            <i class="fa-solid fa-right-to-bracket"></i>Login
-          </div>
+          <Link to={`/login`}>
+            <div
+              className={`nav-item ${
+                activeNavItem === "login" ? "nav-active" : ""
+              }`}
+              onClick={() => handleNavItemClick("login")}
+            >
+              <i class="fa-solid fa-right-to-bracket"></i>Login
+            </div>
+          </Link>
         </>
       )}
     </div>

@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import "../../Styles/login.css";
+import axios from "axios";
 
 const Signup = () => {
   const [formData, setFormData] = useState({
@@ -9,6 +10,7 @@ const Signup = () => {
     password: "",
     selectedGenres: [],
   });
+  const [res, setres] = useState();
 
   const [availableGenres, setAvailableGenres] = useState([
     "Anime",
@@ -33,27 +35,37 @@ const Signup = () => {
         selectedGenres: [...prevData.selectedGenres, selectedGenre],
       }));
     }
+    console.log(formData); // Now this is in the correct order
   };
 
   const handleGenreRemove = (genre) => {
-    const updatedGenres = formData.selectedGenres.filter((g) => g !== genre);
-    setFormData((prevData) => ({
-      ...prevData,
-      selectedGenres: updatedGenres,
-    }));
+    setFormData((prevData) => {
+      const updatedGenres = prevData.selectedGenres.filter((g) => g !== genre);
+      return {
+        ...prevData,
+        selectedGenres: updatedGenres,
+      };
+    });
 
     // Add the removed genre back to availableGenres
     setAvailableGenres((prevGenres) => [...prevGenres, genre].sort());
   };
 
-  const handleSignup = () => {
-    // Implement your signup logic here
-    console.log("Form Data:", formData);
-    // Add further signup logic...
+  const handleSignup = async () => {
+    try {
+      console.log(formData);
+      const response = await axios.post(
+        "http://localhost:5000/register",
+        formData
+      );
+      setres(response.data.msg);
+      console.log(response); // Assuming you want to log the response data
+    } catch (error) {
+      console.error("Error during signup:", error);
+    }
   };
 
   useEffect(() => {
-    // Update available genres when selectedGenres change
     const updatedAvailableGenres = availableGenres.filter(
       (genre) => !formData.selectedGenres.includes(genre)
     );
@@ -91,7 +103,7 @@ const Signup = () => {
           />
 
           {/* Genre selection */}
-          <select onChange={handleGenreSelect}>
+          <select onChange={handleGenreSelect} value={formData.selectedGenres}>
             <option value="" selected>
               Select Genre
             </option>
@@ -117,6 +129,7 @@ const Signup = () => {
 
           <button onClick={handleSignup}>Signup</button>
         </div>
+        {res ? res : ""}
         <div className="login-link-signup">Already a User ? Login </div>
       </div>
     </div>
