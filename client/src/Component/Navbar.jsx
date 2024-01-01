@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import "../Styles/navbar.css";
 import { addUser } from "../Features/userSlice";
@@ -15,21 +15,26 @@ const Navbar = (props) => {
   const users = useSelector(selectUsers);
   const dispatch = useDispatch();
 
+  useEffect(() => {
+    handleNavItemClick();
+  }, []);
+
   const handleNavItemClick = (navItem) => {
     setActiveNavItem(navItem);
 
     // Check if the clicked item is "login" or "logout" and dispatch the action accordingly
-    if (navItem === "login") {
-      // Assuming you have the user data available, replace this with your actual user data
-      const userData = {
-        name: "Anurag",
-        email: "anuragraushan373@gmail.com",
-        phone: "8210003603",
-      };
-      dispatch(addUser(userData));
-    } else if (navItem === "logout") {
-      dispatch(removeUser());
-    }
+    // if (navItem === "login") {
+    // Assuming you have the user data available, replace this with your actual user data
+    const userData = {
+      name: "Leena",
+      email: "rahul123@gmail.com",
+      phone: "8210003603",
+      age: "5",
+    };
+    dispatch(addUser(userData));
+    // } else if (navItem === "logout") {
+    //   dispatch(removeUser());
+    // }
   };
 
   return (
@@ -55,15 +60,17 @@ const Navbar = (props) => {
       </Link>
       {userStatus ? (
         <>
-          <div
-            className={`nav-item ${
-              activeNavItem === "profile" ? "nav-active" : ""
-            }`}
-            onClick={() => handleNavItemClick("profile")}
-          >
-            <i className="fa-solid fa-user"></i>
-            Profile
-          </div>
+          <Link to={`/profile`}>
+            <div
+              className={`nav-item ${
+                activeNavItem === "profile" ? "nav-active" : ""
+              }`}
+              onClick={() => handleNavItemClick("profile")}
+            >
+              <i className="fa-solid fa-user"></i>
+              {users.name}
+            </div>
+          </Link>
           <div onClick={() => handleNavItemClick("logout")}>
             <i class="fa-solid fa-right-from-bracket"></i>Logout
           </div>
@@ -82,6 +89,10 @@ const Navbar = (props) => {
           </Link>
         </>
       )}
+
+      <div className="search-input">
+        <input type="text" name="search" id="" placeholder="Search Book" />
+      </div>
     </div>
   );
 };

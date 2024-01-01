@@ -8,21 +8,27 @@ const BookDetail = (params) => {
   const handleImageLoad = () => {
     setImgLoading(false);
   };
+  function truncateText(text, maxLength) {
+    if (text.length > maxLength) {
+      return text.substring(0, maxLength) + "...";
+    }
+    return text;
+  }
   useEffect(() => {
     const fetchData = async () => {
       try {
         const response = await axios.get(
-          `https://openlibrary.org/search.json?q=${params.id}`
+          `http://localhost:5000/getbook/${params.id}`
         );
-        const isb = response.data.docs[0].isbn[0];
-        setisbn(response.data.docs[0]);
+        setisbn(response.data.book);
+        console.log(isbn);
       } catch (error) {
         console.error("Error fetching data:", error);
       }
     };
 
     fetchData();
-  }, []);
+  }, [params.id]);
   return (
     <>
       {isbn ? (
@@ -31,9 +37,13 @@ const BookDetail = (params) => {
           <div className="book-detail">
             <div className="book-inner-detail">
               <div className="book-image">
-                {imgLoading && <p style={{ height: "10rem" }}>Loading...</p>}
+                {imgLoading && (
+                  <div className="loading" style={{}}>
+                    <div>Loading...</div>
+                  </div>
+                )}
                 <img
-                  src={`https://covers.openlibrary.org/b/isbn/${isbn.isbn[0]}-L.jpg`}
+                  src={`https://covers.openlibrary.org/b/isbn/${isbn.isbn}-L.jpg`}
                   alt=""
                   srcset=""
                   onLoad={handleImageLoad}
@@ -41,10 +51,21 @@ const BookDetail = (params) => {
               </div>
 
               <div className="book-info">
-                <div className="book-name">{isbn.title}</div>
-                <div className="book-author">{isbn.author_name}</div>
-                <div className="book-genre">Genre</div>
-                <div className="book-rating">Rating</div>
+                <div className="book-detail-name">
+                  {truncateText(isbn.name, 50)}
+                </div>
+                <div className="book-detail-author">By {isbn.author}</div>
+                <div className="book-detail-rating">
+                  Rating : {isbn.rating} / 5
+                </div>
+                <div className="book-detail-rating">
+                  Age : Between {isbn.age[0]} and {isbn.age[2]}
+                  {isbn.age[3]}
+                </div>
+                <div className="book-desc">
+                  {isbn.description &&
+                    isbn.description.substring(4, isbn.description.length - 8)}
+                </div>
               </div>
             </div>
           </div>

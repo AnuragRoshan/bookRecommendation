@@ -1,5 +1,8 @@
+@import url("https://fonts.googleapis.com/css2?family=Noticia+Text&display=swap");
 .book-detail {
   height: max-content;
+
+  position: relative;
   /* background-color: grey; */
   /* border-bottom: 1px solid grey; */
 }
@@ -14,32 +17,79 @@
 .book-image {
   text-align: center;
   margin-block-start: 1rem;
+  position: relative;
+  background-color: white;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  border-radius: 1rem;
+  /* margin-inline: 20%; */
+  /* margin-inline: rem; */
+  width: 30%;
+  margin: auto;
+  padding: 1rem;
 }
 
 .book-image img {
   /* height: 60%; */
-  width: 30%;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  width: 100%;
+  /* box-shadow: 0 0 10px rgba(0, 0, 0, 0.2); */
   border-radius: 1rem;
+  height: 30rem;
+}
+
+.loading {
+  position: absolute;
+  height: 30rem;
+  width: 100%;
+  margin: auto;
+  /* background-color: #a9a9a9f1; */
+  /* border: 1px solid grey; */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 1rem;
+  /* box-shadow: 0 0 10px rgba(0, 0, 0, 0.2); */
+  text-align: center;
 }
 
 .book-info {
   text-align: center;
   font-family: Montserrat;
+  padding: 2rem;
+  border-radius: 1rem;
+  background-color: white;
+  margin-block-start: 1rem;
+  height: max-content;
 }
 .book-info > * {
   margin-block-start: 1rem;
 }
 
-.book-name {
-  font-size: 2rem;
+.book-detail-name {
+  font-size: 3rem;
+  text-align: center;
+  font-weight: 600;
 }
-.book-author {
-  font-size: 1.3rem;
+.book-detail-author {
+  font-size: 1.8rem;
+  font-weight: 600;
+  color: grey;
+  text-align: center;
 }
-.book-genre {
+.book-detail-genre {
   font-size: 1.1rem;
+  font-weight: 600;
 }
-.book-rating {
-  font-size: 1.1rem;
+.book-detail-rating {
+  font-weight: 600;
+  font-size: 1.4rem;
+  text-align: center;
+}
+
+.book-desc {
+  font-family: "Noticia Text", serif;
+  font-size: 1.2rem !important;
+  width: 70%;
+  color: rgb(61, 61, 61);
+  margin: auto;
+  margin-block: 0.5rem;
 }

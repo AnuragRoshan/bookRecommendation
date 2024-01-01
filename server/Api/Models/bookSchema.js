@@ -29,9 +29,18 @@ const bookSchema = new mongoose.Schema({
     like: {
         type: Array
     },
-    comment: {
-        type: Array
-    }
+    comments: [
+        {
+            username: {
+                type: String,
+                ref: 'User', // Reference to the User model
+                required: true
+            },
+            name: String,
+            comment: String,
+            date: { type: Date, default: Date.now }
+        }
+    ]
 }
     ,
     { timestamps: true });

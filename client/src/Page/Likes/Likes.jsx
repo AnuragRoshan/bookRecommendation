@@ -1,12 +1,17 @@
 import React from "react";
-import CardList from "../../Component/CardList";
 import Banner from "../../Component/Likes/Banner";
+import LikedCardList from "../../Component/LikedCardList";
 
 const Likes = () => {
   return (
     <div style={{ paddingBlockStart: "4rem" }}>
       <Banner />
-      <CardList topic={"likes"} detail={"15 18"} nos={"9"} color={"ffdab9ee"} />
+      <LikedCardList
+        topic={"likes"}
+        detail={""}
+        nos={"99"}
+        color={"ffdab9ee"}
+      />
     </div>
   );
 };

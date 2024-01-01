@@ -5,6 +5,11 @@ a {
   color: inherit;
 }
 
+* ::selection {
+  background-color: #e8ff3b;
+  color: black;
+}
+
 .App-logo {
   height: 40vmin;
   pointer-events: none;

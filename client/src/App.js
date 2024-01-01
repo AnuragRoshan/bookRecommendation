@@ -10,6 +10,9 @@ import Detail from "./Page/Detail/Detail"; import {
   selectUsers
 } from "./Features/userSlice";
 import { useSelector, useDispatch } from "react-redux";
+import Footer from "./Component/Footer";
+import Profile from "./Page/Profile/Profile";
+import AllCardList from "./Page/AllCardList/AllCardList";
 
 function App() {
 
@@ -26,7 +29,10 @@ function App() {
           <Route exact path='/signup' element={<Signup />} />
           <Route exact path='/likes' element={<Likes />} />
           <Route exact path='/detail/:id' element={<Detail />} />
+          <Route exact path='/profile' element={<Profile />} />
+          <Route exact path='/allCard/:min/:max' element={<AllCardList />} />
         </Routes>
+        <Footer />
       </Router>
     </div>
   );

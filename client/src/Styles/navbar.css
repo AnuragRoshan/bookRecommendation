@@ -30,3 +30,34 @@
 i {
   margin-right: 0.4rem;
 }
+
+.search-input {
+  width: 20rem;
+  height: 2rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.search-input:hover {
+  background-color: transparent !important;
+}
+
+.search-input input {
+  font-family: Montserrat;
+  font-size: 1rem;
+  background-color: rgb(229, 229, 229);
+  width: 100%;
+  height: 100%;
+  border: none;
+  text-decoration: none;
+  border-radius: 1rem;
+  padding: 0.5rem;
+}
+
+.social-icon {
+  transition: color 0.3s ease; /* Smooth color transition over 0.3 seconds */
+}
+
+.social-icon:hover {
+  color: #9df21d; /* Change to the desired native color on hover */
+}

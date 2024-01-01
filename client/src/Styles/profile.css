@@ -1,0 +1,56 @@
+body {
+  font-family: "Montserrat", sans-serif;
+  margin: 0;
+  padding: 0;
+  /* background-color: #f5f5f5; */
+}
+
+.container {
+  position: relative;
+  background-color: #ff5454a7;
+  /* padding-top: 10rem; */
+  height: max-content;
+  padding: 10rem 4rem 1rem 4rem;
+  width: 60%;
+  margin: auto;
+
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.profile-header {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.profile-header img {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-bottom: 10px;
+}
+
+.profile-header h1 {
+  font-size: 2.5em;
+  margin: 10px 0;
+}
+
+.profile-info {
+  margin-bottom: 20px;
+  font-size: 1.5rem;
+}
+
+.profile-info p {
+  margin: 10px 0;
+}
+
+.short-bio {
+  margin-bottom: 20px;
+  font-size: 1.5rem;
+}
+
+.book-list {
+  list-style: none;
+  padding: 0;
+}

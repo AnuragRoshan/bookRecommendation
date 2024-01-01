@@ -15,6 +15,7 @@ export const userSlice = createSlice({
                 name: action.payload.name,
                 email: action.payload.email,
                 phone: action.payload.phone,
+                age: action.payload.age,
             };
 
             // If there were no users (users is null), initialize the users object
