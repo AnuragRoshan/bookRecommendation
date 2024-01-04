@@ -14,8 +14,8 @@ export const userSlice = createSlice({
                 id: nanoid(),
                 name: action.payload.name,
                 email: action.payload.email,
-                phone: action.payload.phone,
                 age: action.payload.age,
+                genres: action.payload.genres,
             };
 
             // If there were no users (users is null), initialize the users object

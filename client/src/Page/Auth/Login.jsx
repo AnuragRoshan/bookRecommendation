@@ -1,12 +1,13 @@
 import React, { useState } from "react";
 import axios from "axios";
 import "../../Styles/login.css";
+import { useSelector } from "react-redux";
+import { selectUserStatus, selectUsers } from "../../Features/userSlice";
 
 const Login = () => {
-  const [formData, setFormData] = useState({
-    username: "",
-    password: "",
-  });
+  const [formData, setFormData] = useState({});
+  const userStatus = useSelector(selectUserStatus);
+  const users = useSelector(selectUsers);
 
   const handleInputChange = (field, value) => {
     setFormData((prevData) => ({
@@ -17,19 +18,15 @@ const Login = () => {
   };
 
   const handleLogin = async () => {
-    try {
-      // Make a POST request to the login endpoint
-      const response = await axios.post(
-        "http://localhost:5000/login",
-        formData
-      );
-
-      // Handle the response as needed (e.g., show a success message, redirect)
-      console.log("Login successful:", response.data);
-    } catch (error) {
-      // Handle errors (e.g., show an error message)
-      console.error("Login failed:", error.message);
-    }
+    await axios
+      .post(`http://localhost:5000/login`, formData, {
+        withCredentials: true,
+      })
+      .then((response) => {
+        //   window.history.replaceState(null, "", "/");
+        console.log(response);
+        // Navigate("/");
+      });
   };
 
   return (
@@ -52,6 +49,7 @@ const Login = () => {
           <button onClick={handleLogin}>Login</button>
         </div>
         <div className="login-link-signup">New User ? Signup </div>
+        hey{users.name}
       </div>
     </div>
   );

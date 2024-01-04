@@ -9,7 +9,7 @@ import {
   removeUser,
 } from "../Features/userSlice"; // Update the path accordingly
 
-const Navbar = (props) => {
+const Navbar = () => {
   const [activeNavItem, setActiveNavItem] = useState("");
   const userStatus = useSelector(selectUserStatus);
   const users = useSelector(selectUsers);
@@ -25,13 +25,7 @@ const Navbar = (props) => {
     // Check if the clicked item is "login" or "logout" and dispatch the action accordingly
     // if (navItem === "login") {
     // Assuming you have the user data available, replace this with your actual user data
-    const userData = {
-      name: "Leena",
-      email: "rahul123@gmail.com",
-      phone: "8210003603",
-      age: "5",
-    };
-    dispatch(addUser(userData));
+    // dispatch(addUser(userData));
     // } else if (navItem === "logout") {
     //   dispatch(removeUser());
     // }

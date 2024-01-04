@@ -22,7 +22,7 @@ const LikedCardList = (props) => {
       .get(`http://localhost:5000/getLikedBook`)
       .then((response) => {
         setBooks(response.data.likedBooks);
-        console.log(response.data.likedBooks);
+        // console.log(response.data.likedBooks);
       })
       .catch((error) => {
         console.error("Error fetching books:", error);

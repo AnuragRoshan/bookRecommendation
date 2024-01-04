@@ -25,7 +25,11 @@ const userSchema = new mongoose.Schema({
     },
     likes: {
         type: Array
-    }
+    },
+    token: {
+        type: String,
+        default: null,
+    },
 }
     ,
     { timestamps: true });

@@ -1,12 +1,63 @@
 const bcrypt = require('bcryptjs');
 const User = require('../Models/userSchema');
 const Book = require('../Models/bookSchema');
+const jwt = require('jsonwebtoken');
 const passport = require('passport');
+const request = require("request")
+const cookieParser = require('cookie-parser');
+const auth = require('../Middleware/auth');
+
 // const {
 //     checkUserExists,
 //     checkEmailValidity,
 //     checkAgeValidity,
 // } = require('../Middleware/userReg');
+
+
+exports.loginUser = async (req, res, next) => {
+    try {
+        const { username, password } = req.body;
+        const user = await User.findOne({ username });
+        const passCheck = await bcrypt.compare(password, user.password)
+
+        if (user && passCheck) {
+            const token = jwt.sign(
+                { id: user.id, username: user.username, name: user.name, age: user.age },
+                "jwtsecret",
+                { expiresIn: "1h" },
+            )
+            user.token = token;
+            user.password = undefined;
+
+            //cookie section
+            const options = {
+                expires: new Date(
+                    Date.now() + 90 * 24 * 60 * 60 * 1000 //90 days
+                ),
+                httpOnly: true,
+            };
+
+            res.status(200).cookie("token", token, options).json({ msg: 'User Logged In Successfully', token, user });
+        }
+
+        // return res.status(200).json({ msg: 'User Logged In Successfully', user });
+        // res.status(400).json({ msg: "Invalid Creds" })
+
+
+    } catch (error) {
+        console.log(error);
+    }
+};
+
+
+exports.getUser = async (req, res, next) => {
+    // console.log(req.user);
+    const user = await User.findOne({ username: req.user.username });
+
+    res.send(user);
+
+};
+
 
 
 exports.updateDb = async (req, res, next) => {
@@ -37,7 +88,7 @@ exports.registerUser = async (req, res, next) => {
         // Create a new user
         let usernameC = await User.findOne({ username: username })
         if (!usernameC) {
-            const newUser = new User({
+            const user = await User.create({
                 name: name,
                 username: username, // Assuming username is used as an email
                 age: age,
@@ -45,10 +96,19 @@ exports.registerUser = async (req, res, next) => {
                 selectedGenres: selectedGenres || [], // Default to an empty array if not provided
             });
 
-            // Save the new user to the database
-            await newUser.save();
+            const token = jwt.sign(
+                { id: user.id, user },
+                "jwtsecret",
+                { expiresIn: "1h" },
 
-            return res.status(200).json({ msg: 'User Added Successfully' });
+            )
+            // Save the new user to the database
+            user.token = token;
+            user.password = undefined;
+
+
+
+            return res.status(200).json({ msg: 'User Added Successfully', user });
         }
         else {
             return res.status(202).json({ msg: " User Already Exist" });
@@ -57,29 +117,6 @@ exports.registerUser = async (req, res, next) => {
         console.error(error);
         return res.status(500).json({ msg: 'Internal Server Error' });
     }
-};
-
-
-exports.loginUser = (req, res, next) => {
-    // console.log(req.body);
-    passport.authenticate("local", (err, user) => {
-        // console.log(err);
-        if (err) { console.log(err); res.send({ status: "500", message: "Try Again Later" }); }
-        else if (!user) return res.send({ status: "202", message: "wrong cred" });
-        else {
-            req.logIn(user, (err) => {
-                if (err) throw err;
-                // console.log(req.user);
-                res.send({ status: "200", message: "Autheticated " });
-                console.log(req.user);
-            });
-        }
-    })(req, res, next);
-};
-
-exports.userDetails = (req, res) => {
-    // res.send(req); // The req.user stores the entire user that has been authenticated inside of it.
-    console.log(req.user);
 };
 
 
@@ -110,7 +147,7 @@ exports.getBook = async (req, res, next) => {
     console.log(id);
 
     try {
-        const book = await Book.findOne({ _id: id });
+        const book = await Book.findOne({ name: id });
 
         if (!book) {
             return res.status(404).json({ message: 'Book not found' });
@@ -206,22 +243,23 @@ exports.getLikedBook = async (req, res, next) => {
 }
 
 exports.postComment = async (req, res, next) => {
-    const { bookId, username, comment } = req.body;
+    const { bookName, username, comment, name } = req.body;
 
     // Validate input
-    if (!bookId || !username || !comment) {
-        return res.status(400).json({ error: 'Invalid input. Please provide bookId, username, and comment.' });
+    if (!bookName || !username || !comment) {
+        return res.status(400).json({ error: 'Invalid input. Please provide bookName, username, and comment.' });
     }
 
     try {
-        // Use findByIdAndUpdate for atomic update
-        const updatedBook = await Book.findByIdAndUpdate(
-            bookId,
+        // Use findOneAndUpdate to find by name and update comments
+        const updatedBook = await Book.findOneAndUpdate(
+            { name: bookName },
             {
                 $push: {
                     comments: {
                         username,
                         comment,
+                        name,
                     },
                 },
             },
@@ -237,6 +275,7 @@ exports.postComment = async (req, res, next) => {
         console.error(error);
         return res.status(500).json({ error: 'Internal Server Error' });
     }
+
 };
 
 
@@ -245,7 +284,7 @@ exports.getComment = async (req, res, next) => {
     // console.log(bookId);
 
     try {
-        const bookWithComments = await Book.findOne({ _id: bookId })
+        const bookWithComments = await Book.findOne({ name: bookId })
 
         if (!bookWithComments) {
             return res.status(404).json({ error: 'Book not found' });
@@ -264,3 +303,16 @@ exports.getComment = async (req, res, next) => {
         return res.status(500).json({ error: 'Internal Server Error' });
     }
 }
+
+
+exports.getRecom = async (req, res, next) => {
+    const { book } = req.params;
+    request(`http://127.0.0.1:5000/get_recommendations?book_name=` + book, function (error, response, body) {
+        console.error('error:', error); // Print the error
+        console.log('statusCode:', response && response.statusCode); // Print the response status code if a response was received
+        console.log('body:', body); // Print the data received
+        res.send(body); //Display the response on the website
+    });
+    // res.send(book);
+
+};

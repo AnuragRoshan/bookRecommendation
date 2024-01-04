@@ -48,7 +48,7 @@ const CardComponent = ({ book }) => {
   return (
     <div>
       <div className="book-list-item">
-        <Link to={`/detail/${book._id}`}>
+        <Link to={`/detail/${book.name}`}>
           <div className="book-img">
             {/* Use actual image source here if book.isbn exists, otherwise skip this book */}
             {book.isbn && (
@@ -63,7 +63,14 @@ const CardComponent = ({ book }) => {
         <div className="book-detail">
           <div className="book-name">{truncateText(book.name, 22)}</div>
           <div className="book-author">{book.author}</div>
-          <div className="book-genre">Rating : {book.rating}/5</div>
+          {book.rating ? (
+            <>
+              <div className="book-genre">Rating : {book.rating}/5</div>
+            </>
+          ) : (
+            <></>
+          )}
+
           <div className="book-genre">
             Age : Between {book.age[0]} and {book.age[2]}
             {book.age[3]}

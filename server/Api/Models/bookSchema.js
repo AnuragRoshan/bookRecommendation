@@ -31,11 +31,7 @@ const bookSchema = new mongoose.Schema({
     },
     comments: [
         {
-            username: {
-                type: String,
-                ref: 'User', // Reference to the User model
-                required: true
-            },
+            username: String,
             name: String,
             comment: String,
             date: { type: Date, default: Date.now }

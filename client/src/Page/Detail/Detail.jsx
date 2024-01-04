@@ -4,6 +4,8 @@ import BookDetail from "../../Component/Detail/BookDetail";
 import CardList from "../../Component/CardList";
 import axios from "axios";
 import Banner from "../../Component/Home/Banner";
+import Comment from "../../Component/Comment";
+import RecomCardList from "../../Component/RecomCardList";
 
 const Detail = () => {
   // Empty dependency array to run the effect only once when the component mounts
@@ -21,7 +23,13 @@ const Detail = () => {
     <div style={{ paddingBlock: "4rem" }}>
       {/* <Banner /> */}
       <BookDetail id={id} />
-      <CardList topic={"recom"} detail={"2 5"} nos={"4"} color={"add8e6ee"} />
+      <Comment />
+      <RecomCardList
+        topic={"recom"}
+        detail={"2 5"}
+        nos={"4"}
+        color={"add8e6ee"}
+      />
     </div>
   );
 };

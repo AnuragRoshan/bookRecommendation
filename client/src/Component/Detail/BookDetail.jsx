@@ -21,7 +21,7 @@ const BookDetail = (params) => {
           `http://localhost:5000/getbook/${params.id}`
         );
         setisbn(response.data.book);
-        console.log(isbn);
+        // console.log(isbn);
       } catch (error) {
         console.error("Error fetching data:", error);
       }

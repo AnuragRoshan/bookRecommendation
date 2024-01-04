@@ -30,7 +30,7 @@ const CardList = (props) => {
       .get(`http://localhost:5000/books/${number1}/${number2}`)
       .then((response) => {
         setBooks(response.data.books);
-        console.log(response.data.books);
+        // console.log(response.data.books);
       })
       .catch((error) => {
         console.error("Error fetching books:", error);
@@ -65,7 +65,7 @@ const CardList = (props) => {
           <>
             <div className="book-list">
               {/* Use map to dynamically render book list items */}
-              {bookse.slice(10, 10 + nos).map((book, index) => (
+              {bookse.slice(5, 5 + nos).map((book, index) => (
                 <CardComponent book={book} />
               ))}
             </div>
