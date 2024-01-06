@@ -4,6 +4,7 @@ import "../Styles/cardlist.css";
 import axios from "axios";
 import { Link } from "react-router-dom";
 import CardComponent from "./CardComponent";
+import { api } from "../Assist/env";
 
 const CardList = (props) => {
   let nos = Number(props.nos);
@@ -27,7 +28,7 @@ const CardList = (props) => {
 
   const getData = async () => {
     await axios
-      .get(`http://localhost:5000/books/${number1}/${number2}`)
+      .get(`${api}books/${number1}/${number2}`)
       .then((response) => {
         setBooks(response.data.books);
         // console.log(response.data.books);

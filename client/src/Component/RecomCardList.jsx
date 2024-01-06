@@ -4,6 +4,7 @@ import "../Styles/cardlist.css";
 import axios from "axios";
 import { Link, useParams } from "react-router-dom";
 import CardComponent from "./CardComponent";
+import { api } from "../Assist/env";
 
 const RecomCardList = (props) => {
   const { id } = useParams();
@@ -28,11 +29,18 @@ const RecomCardList = (props) => {
 
   const getData = async () => {
     console.log(id);
-    const apiUrl = `http://localhost:5000/recomBook/${id}`;
+    const apiUrl = `${api}recomBook/${id}`;
 
     try {
       const response = await axios.get(apiUrl);
-      setBooks(response.data || []); // Ensure that response.data is an array, or default to an empty array
+
+      // Check if response.data is an array
+      if (Array.isArray(response.data)) {
+        setBooks(response.data);
+      } else {
+        // If response.data is not an array, handle it accordingly (e.g., set to an empty array)
+        setBooks([]);
+      }
     } catch (error) {
       console.error("Error fetching data:", error);
     }

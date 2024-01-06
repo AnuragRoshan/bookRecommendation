@@ -21,7 +21,7 @@ const SearchCardList = (props) => {
 
   const getData = async () => {
     // console.log(id);
-    const apiUrl = `http://localhost:5000/search/${searchInput}`;
+    const apiUrl = `{api}search/${searchInput}`;
 
     try {
       const response = await axios.get(apiUrl);

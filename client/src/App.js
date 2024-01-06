@@ -10,6 +10,7 @@ import Footer from "./Component/Footer";
 import Profile from "./Page/Profile/Profile";
 import AllCardList from "./Page/AllCardList.jsx/AllCardList";
 import { useEffect, useState } from "react";
+import { api } from "./Assist/env";
 import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
 import { addUser, selectUserStatus } from "./Features/userSlice";
@@ -20,7 +21,8 @@ function App() {
   const user = useSelector(selectUserStatus);
   const getData = async () => {
     try {
-      const apiUrl = `http://localhost:5000/getUser`;
+
+      const apiUrl = `${api}getUser`;
 
       const { data } = await axios.get(apiUrl, { withCredentials: true });
       const userData = {

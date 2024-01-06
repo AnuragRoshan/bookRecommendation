@@ -6,6 +6,7 @@ import { Link } from "react-router-dom";
 import CardComponent from "./CardComponent";
 import { useSelector } from "react-redux";
 import { selectUsers } from "../Features/userSlice";
+import { api } from "../Assist/env";
 
 const LikedCardList = (props) => {
   const users = useSelector(selectUsers);
@@ -22,7 +23,7 @@ const LikedCardList = (props) => {
 
   const getData = async () => {
     await axios
-      .get(`http://localhost:5000/getLikedBook/${users.email}`)
+      .get(`${api}getLikedBook/${users.email}`)
       .then((response) => {
         setBooks(response.data.likedBooks);
         // console.log(response.data.likedBooks);

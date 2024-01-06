@@ -10,6 +10,7 @@ import {
 } from "../Features/userSlice";
 import axios from "axios";
 import Cookies from "js-cookie";
+import { api } from "../Assist/env";
 
 const Navbar = () => {
   const [activeNavItem, setActiveNavItem] = useState("");
@@ -29,7 +30,7 @@ const Navbar = () => {
 
   const handleLogout = async () => {
     try {
-      const response = await axios.post("http://localhost:5000/logout", null, {
+      const response = await axios.post(`${api}logout`, null, {
         withCredentials: true, // include cookies in the request
       });
 

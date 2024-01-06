@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import axios from "axios";
 import { useSelector } from "react-redux";
 import { selectUserStatus, selectUsers } from "../Features/userSlice";
+import { api } from "../Assist/env";
 
 const CardComponent = ({ book }) => {
   const users = useSelector(selectUsers);
@@ -30,12 +31,10 @@ const CardComponent = ({ book }) => {
 
   const setisBookmark = async () => {
     setIsLoading(true);
-    await axios
-      .post("http://localhost:5000/toggleBookmark", formData)
-      .then((response) => {
-        setIsLoading(false);
-        console.log(response);
-      });
+    await axios.post(`${api}toggleBookmark`, formData).then((response) => {
+      setIsLoading(false);
+      console.log(response);
+    });
     // console.log(formData);
   };
 

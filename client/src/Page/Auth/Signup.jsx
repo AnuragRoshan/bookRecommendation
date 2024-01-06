@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import "../../Styles/login.css";
 import axios from "axios";
 import { Link } from "react-router-dom";
+import { api } from "../../Assist/env";
 
 const Signup = () => {
   const [formData, setFormData] = useState({
@@ -55,10 +56,7 @@ const Signup = () => {
   const handleSignup = async () => {
     try {
       console.log(formData);
-      const response = await axios.post(
-        "http://localhost:5000/register",
-        formData
-      );
+      const response = await axios.post(`${api}register`, formData);
       setres(response.data.msg);
       console.log(response); // Assuming you want to log the response data
     } catch (error) {

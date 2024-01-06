@@ -4,6 +4,7 @@ import "../../Styles/login.css";
 import { useSelector } from "react-redux";
 import { selectUserStatus, selectUsers } from "../../Features/userSlice";
 import { Link } from "react-router-dom";
+import { api } from "../../Assist/env";
 
 const Login = () => {
   const [formData, setFormData] = useState({});
@@ -20,7 +21,7 @@ const Login = () => {
 
   const handleLogin = async () => {
     await axios
-      .post(`http://localhost:5000/login`, formData, {
+      .post(`${api}login`, formData, {
         withCredentials: true,
       })
       .then((response) => {

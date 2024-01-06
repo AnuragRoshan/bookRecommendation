@@ -4,6 +4,7 @@ import { useParams } from "react-router-dom";
 import axios from "axios";
 import { useSelector } from "react-redux";
 import { selectUserStatus, selectUsers } from "../Features/userSlice";
+import { api } from "../Assist/env";
 
 const Comment = () => {
   const user = useSelector(selectUsers);
@@ -23,7 +24,7 @@ const Comment = () => {
   }, [id]);
 
   const postComment = async () => {
-    await axios.post("http://localhost:5000/postComment", data).then((res) => {
+    await axios.post(`${api}postComment`, data).then((res) => {
       getComments();
     });
 
@@ -35,9 +36,7 @@ const Comment = () => {
 
   const getComments = async () => {
     try {
-      const response = await axios.get(
-        `http://localhost:5000/getComment/${id}`
-      );
+      const response = await axios.get(`${api}getComment/${id}`);
       setComments(
         response.data.comments ? response.data.comments.reverse() : []
       );

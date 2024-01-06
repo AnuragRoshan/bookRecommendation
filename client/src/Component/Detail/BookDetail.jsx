@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import "../../Styles/detail.css";
 import axios from "axios";
+import { api } from "../../Assist/env";
 
 const BookDetail = (params) => {
   const [isbn, setisbn] = useState("");
@@ -17,9 +18,7 @@ const BookDetail = (params) => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get(
-          `http://localhost:5000/getbook/${params.id}`
-        );
+        const response = await axios.get(`${api}getbook/${params.id}`);
         setisbn(response.data.book);
         // console.log(isbn);
       } catch (error) {
