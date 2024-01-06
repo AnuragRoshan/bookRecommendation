@@ -3,6 +3,7 @@ import axios from "axios";
 import "../../Styles/login.css";
 import { useSelector } from "react-redux";
 import { selectUserStatus, selectUsers } from "../../Features/userSlice";
+import { Link } from "react-router-dom";
 
 const Login = () => {
   const [formData, setFormData] = useState({});
@@ -26,6 +27,11 @@ const Login = () => {
         //   window.history.replaceState(null, "", "/");
         console.log(response);
         // Navigate("/");
+        if (response.status === 200) {
+          window.location.href = "/";
+        } else if (response.status === 201) {
+          alert("Bacche Teri Maaki Chut");
+        }
       });
   };
 
@@ -48,8 +54,13 @@ const Login = () => {
           />
           <button onClick={handleLogin}>Login</button>
         </div>
-        <div className="login-link-signup">New User ? Signup </div>
-        hey{users.name}
+        <div className="login-link-signup">
+          New User ?{" "}
+          <Link to={"/signup"} style={{ color: "blue" }}>
+            {" "}
+            Signup{" "}
+          </Link>
+        </div>
       </div>
     </div>
   );

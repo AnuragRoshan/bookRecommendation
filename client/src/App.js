@@ -12,10 +12,12 @@ import AllCardList from "./Page/AllCardList.jsx/AllCardList";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
-import { addUser } from "./Features/userSlice";
+import { addUser, selectUserStatus } from "./Features/userSlice";
+import Search from "./Page/Search/Search";
 
 function App() {
   const dispatch = useDispatch();
+  const user = useSelector(selectUserStatus);
   const getData = async () => {
     try {
       const apiUrl = `http://localhost:5000/getUser`;
@@ -45,12 +47,13 @@ function App() {
         <Navbar />
         <Routes>
           <Route exact path='/' element={<Home />} />
-          <Route exact path='/login' element={<Login />} />
-          <Route exact path='/signup' element={<Signup />} />
-          <Route exact path='/likes' element={<Likes />} />
+          <Route exact path='/login' element={user ? <Home /> : <Login />} />
+          <Route exact path='/signup' element={user ? <Home /> : <Signup />} />
+          <Route exact path='/likes' element={user ? <Likes /> : <Login />} />
           <Route exact path='/detail/:id' element={<Detail />} />
           <Route exact path='/profile' element={<Profile />} />
           <Route exact path='/allCard/:min/:max' element={<AllCardList />} />
+          <Route exact path='/search/:searchInput' element={<Search />} />
         </Routes>
         <Footer />
       </Router>

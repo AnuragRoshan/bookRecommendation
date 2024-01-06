@@ -30,7 +30,7 @@ export const userSlice = createSlice({
             state.userStatus = true; // Set to true for simplicity; adjust based on your logic
         },
         removeUser: (state) => {
-            // Reset users to null and set userStatus to false
+            // Reset users to null and set userStatus to falsek
             state.users = null;
             state.userStatus = false;
         },

@@ -2,13 +2,17 @@ import React, { useEffect, useState } from "react";
 import "../Styles/comment.css";
 import { useParams } from "react-router-dom";
 import axios from "axios";
+import { useSelector } from "react-redux";
+import { selectUserStatus, selectUsers } from "../Features/userSlice";
 
 const Comment = () => {
+  const user = useSelector(selectUsers);
+  const userStatus = useSelector(selectUserStatus);
   const { id } = useParams();
   const [data, setData] = useState({
     comment: "",
-    username: "anuragraushan373@gmail.com",
-    name: "Anurag Roshan",
+    username: user.email,
+    name: user.name,
     bookName: id,
   });
 
@@ -48,6 +52,7 @@ const Comment = () => {
       ...data,
       comment: e.target.value,
     });
+    // console.log(data);
   };
   function formatTimeAgo(timestamp) {
     const now = new Date();
@@ -79,15 +84,23 @@ const Comment = () => {
       <div className="comment-inner-top">
         <div className="comment-head">Comments</div>
         <div className="comment-form">
-          <div className="input-text">
-            <input
-              type="text"
-              placeholder="Write Comment Here"
-              value={data.comment}
-              onChange={handleChange}
-            />
-          </div>
-          <div onClick={postComment}>Post</div>
+          {userStatus ? (
+            <>
+              <div className="input-text">
+                <input
+                  type="text"
+                  placeholder="Write Comment Here"
+                  value={data.comment}
+                  onChange={handleChange}
+                />
+                <div onClick={postComment} style={{ height: "2.7rem" }}>
+                  Post
+                </div>
+              </div>
+            </>
+          ) : (
+            <>Login To Comment</>
+          )}
         </div>
         <div className="user-comments-list">
           {comments === null ? (

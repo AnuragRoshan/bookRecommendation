@@ -1,12 +1,12 @@
 const jwt = require("jsonwebtoken");
 
 const auth = (req, res, next) => {
-    console.log(req.cookies);
+    // console.log(req.cookies);
     //grab token from cookie
-    const token = req.cookies.token;
+    const token = req.cookies.jwt;
 
     // if no token, return unauthorized
-    console.log(req.cookies);
+    // console.log(req.cookies);
     if (!token) {
         return res.status(401).json({ error: "Unauthorized" })
     }
@@ -15,7 +15,7 @@ const auth = (req, res, next) => {
     try {
 
         const decode = jwt.verify(token, "jwtsecret")
-        console.log(decode);
+        // console.log(decode);
         req.user = decode;
     } catch (error) {
         console.log(error);

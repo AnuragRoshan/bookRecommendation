@@ -4,8 +4,11 @@ import "../Styles/cardlist.css";
 import axios from "axios";
 import { Link } from "react-router-dom";
 import CardComponent from "./CardComponent";
+import { useSelector } from "react-redux";
+import { selectUsers } from "../Features/userSlice";
 
 const LikedCardList = (props) => {
+  const users = useSelector(selectUsers);
   const dynamicStyles = {
     "--primary-color": `#${props.color}`, // Set your dynamic color here
   };
@@ -19,7 +22,7 @@ const LikedCardList = (props) => {
 
   const getData = async () => {
     await axios
-      .get(`http://localhost:5000/getLikedBook`)
+      .get(`http://localhost:5000/getLikedBook/${users.email}`)
       .then((response) => {
         setBooks(response.data.likedBooks);
         // console.log(response.data.likedBooks);

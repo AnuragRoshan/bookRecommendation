@@ -36,8 +36,21 @@ exports.loginUser = async (req, res, next) => {
                 ),
                 httpOnly: true,
             };
+            // here option is used to set the cookie in the browser and if we want to change the name of the cookie we can do it here by changing the name of the cookie in the options and its code is below
+            // const options = {
+            //     expires: new Date(
+            //         Date.now() + 90 * 24 * 60 * 60 * 1000 //90 days
+            //     ),
+            //     httpOnly: true,
+            //     
+            //  and if we want to delete cookie in logout api we can do it by setting the maxAge to 1 like below
+            //     maxAge: 1
+            // };
 
-            res.status(200).cookie("token", token, options).json({ msg: 'User Logged In Successfully', token, user });
+
+            res.status(200).cookie("jwt", token, options).json({ msg: 'User Logged In Successfully', token, user });
+        } else {
+            res.status(201).json({ msg: "Invalid Creds" })
         }
 
         // return res.status(200).json({ msg: 'User Logged In Successfully', user });
@@ -52,11 +65,20 @@ exports.loginUser = async (req, res, next) => {
 
 exports.getUser = async (req, res, next) => {
     // console.log(req.user);
-    const user = await User.findOne({ username: req.user.username });
-
+    let user
+    if (req.user) {
+        // console.log(req.user);
+        user = await User.findOne({ username: req.user.username });
+    }
     res.send(user);
 
 };
+
+exports.logout = async (req, res, next) => {
+    res.clearCookie('jwt');
+    res.json({ msg: "User Logged Out" });
+};
+
 
 
 
@@ -217,10 +239,13 @@ exports.toggleBookmark = async (req, res, next) => {
 }
 
 exports.getLikedBook = async (req, res, next) => {
-    const usermail = "rahul123@gmail.com"
+    // const { username } = req.body;
+    // const username = 'test2@gmail.com';
+    const username = req.params.id;
+    console.log(username);
     try {
         // Find the user based on the email
-        const user = await User.findOne({ username: usermail });
+        const user = await User.findOne({ username: username });
 
         if (!user) {
             return res.status(404).json({ error: 'User not found' });
@@ -315,4 +340,27 @@ exports.getRecom = async (req, res, next) => {
     });
     // res.send(book);
 
+};
+
+
+exports.getSearch = async (req, res, next) => {
+    const { bookName } = req.params;
+
+    try {
+        const books = await Book.find({
+            $or: [
+                { name: { $regex: bookName, $options: 'i' } }, // Search by book name
+                { author: { $regex: bookName, $options: 'i' } } // Search by author name
+            ]
+        });
+
+        if (!books) {
+            return res.status(404).json({ error: 'Books not found' });
+        }
+
+        return res.status(200).json({ books });
+    } catch (error) {
+        console.error(error);
+        return res.status(500).json({ error: 'Internal Server Error' });
+    }
 };

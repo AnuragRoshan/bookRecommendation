@@ -33,7 +33,7 @@ const BookDetail = (params) => {
     <>
       {isbn ? (
         <>
-          {console.log(isbn)}
+          {/* {console.log(isbn)} */}
           <div className="book-detail">
             <div className="book-inner-detail">
               <div className="book-image">

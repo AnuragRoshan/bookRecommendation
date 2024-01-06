@@ -1,8 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
+import { useSelector } from "react-redux";
+import { selectUserStatus, selectUsers } from "../Features/userSlice";
 
 const CardComponent = ({ book }) => {
+  const users = useSelector(selectUsers);
+  const userStatus = useSelector(selectUserStatus);
   function truncateText(text, maxLength) {
     if (text.length > maxLength) {
       return text.substring(0, maxLength) + "...";
@@ -13,12 +17,12 @@ const CardComponent = ({ book }) => {
   const [isBookmarked, setisBookmarked] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [formData, setFormData] = useState({
-    username: "rahul123@gmail.com",
+    username: users.email,
     bookId: book._id,
   });
 
   useEffect(() => {
-    if (book.like && book.like.includes("rahul123@gmail.com")) {
+    if (book.like && book.like.includes(`${users.email}`)) {
       setisBookmarked(true);
     }
     // console.log("SHoot Only in beginning");
@@ -86,38 +90,44 @@ const CardComponent = ({ book }) => {
               fontSize: "1.5rem",
             }}
           >
-            {isBookmarked ? (
+            {userStatus ? (
               <>
-                {isLoading ? (
+                {isBookmarked ? (
                   <>
-                    <div style={{ cursor: "not-allowed" }}>
-                      <i class="fa-solid fa-bookmark"></i>
-                    </div>
+                    {isLoading ? (
+                      <>
+                        <div style={{ cursor: "not-allowed" }}>
+                          <i class="fa-solid fa-bookmark"></i>
+                        </div>
+                      </>
+                    ) : (
+                      <>
+                        <div onClick={toggleFalse}>
+                          <i class="fa-solid fa-bookmark"></i>
+                        </div>
+                      </>
+                    )}
                   </>
                 ) : (
                   <>
-                    <div onClick={toggleFalse}>
-                      <i class="fa-solid fa-bookmark"></i>
-                    </div>
+                    {isLoading ? (
+                      <>
+                        <div style={{ cursor: "not-allowed" }}>
+                          <i class="fa-regular fa-bookmark"></i>
+                        </div>
+                      </>
+                    ) : (
+                      <>
+                        <div onClick={toggleTrue}>
+                          <i class="fa-regular fa-bookmark"></i>
+                        </div>
+                      </>
+                    )}
                   </>
                 )}
               </>
             ) : (
-              <>
-                {isLoading ? (
-                  <>
-                    <div style={{ cursor: "not-allowed" }}>
-                      <i class="fa-regular fa-bookmark"></i>
-                    </div>
-                  </>
-                ) : (
-                  <>
-                    <div onClick={toggleTrue}>
-                      <i class="fa-regular fa-bookmark"></i>
-                    </div>
-                  </>
-                )}
-              </>
+              <></>
             )}
           </div>
         </div>

@@ -7,10 +7,13 @@ import {
   selectUserStatus,
   selectUsers,
   removeUser,
-} from "../Features/userSlice"; // Update the path accordingly
+} from "../Features/userSlice";
+import axios from "axios";
+import Cookies from "js-cookie";
 
 const Navbar = () => {
   const [activeNavItem, setActiveNavItem] = useState("");
+  const [searchInput, setSearchInput] = useState(""); // Add this line for search input
   const userStatus = useSelector(selectUserStatus);
   const users = useSelector(selectUsers);
   const dispatch = useDispatch();
@@ -19,16 +22,43 @@ const Navbar = () => {
     handleNavItemClick();
   }, []);
 
+  function deleteCookie(name) {
+    document.cookie =
+      name + "=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+  }
+
+  const handleLogout = async () => {
+    try {
+      const response = await axios.post("http://localhost:5000/logout", null, {
+        withCredentials: true, // include cookies in the request
+      });
+
+      if (response.status === 200) {
+        // Logout successful
+        console.log("User logged out");
+        window.location.href = "/";
+      } else {
+        // Handle logout failure
+        console.error("Logout failed");
+      }
+    } catch (error) {
+      console.error("Error during logout:", error);
+    }
+  };
+
   const handleNavItemClick = (navItem) => {
     setActiveNavItem(navItem);
+  };
 
-    // Check if the clicked item is "login" or "logout" and dispatch the action accordingly
-    // if (navItem === "login") {
-    // Assuming you have the user data available, replace this with your actual user data
-    // dispatch(addUser(userData));
-    // } else if (navItem === "logout") {
-    //   dispatch(removeUser());
-    // }
+  const handleSearchInputChange = (e) => {
+    setSearchInput(e.target.value);
+    // console.log(searchInput);
+  };
+
+  const handleSearchSubmit = () => {
+    // Implement your logic for handling search, e.g., redirect to a search page with the searchInput
+    // You can use react-router-dom for this purpose
+    console.log("Search submitted:", searchInput);
   };
 
   return (
@@ -65,7 +95,7 @@ const Navbar = () => {
               {users.name}
             </div>
           </Link>
-          <div onClick={() => handleNavItemClick("logout")}>
+          <div onClick={() => handleLogout()}>
             <i class="fa-solid fa-right-from-bracket"></i>Logout
           </div>
         </>
@@ -85,8 +115,22 @@ const Navbar = () => {
       )}
 
       <div className="search-input">
-        <input type="text" name="search" id="" placeholder="Search Book" />
+        <input
+          type="text"
+          name="search"
+          placeholder="Search Book"
+          value={searchInput}
+          onChange={handleSearchInputChange}
+        />
       </div>
+      <Link to={`/search/${searchInput}`}>
+        <div
+          style={{ paddingInlineStart: "0.2rem" }}
+          onClick={handleSearchSubmit}
+        >
+          Search
+        </div>
+      </Link>
     </div>
   );
 };

@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import "../../Styles/login.css";
 import axios from "axios";
+import { Link } from "react-router-dom";
 
 const Signup = () => {
   const [formData, setFormData] = useState({
@@ -130,7 +131,12 @@ const Signup = () => {
           <button onClick={handleSignup}>Signup</button>
         </div>
         {res ? res : ""}
-        <div className="login-link-signup">Already a User ? Login </div>
+        <div className="login-link-signup">
+          Already a User ?{" "}
+          <Link to={"/login"} style={{ color: "blue" }}>
+            Login
+          </Link>{" "}
+        </div>
       </div>
     </div>
   );
