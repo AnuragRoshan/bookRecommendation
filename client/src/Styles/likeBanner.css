@@ -1,13 +1,14 @@
 .banner-top {
-  background-image: url("https://images.unsplash.com/photo-1612036782180-6f0b6cd846fe?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D");
+  background-image: url("https://ik.imagekit.io/i3divn77k/Book%20Recom/WhatsApp%20Image%202023-12-30%20at%2018.54.34_caec1969.jpg?updatedAt=1704136935862");
+
   width: 100%;
   background-size: cover;
   background-repeat: no-repeat;
-  background-position: center;
+  background-position: bottom;
   font-family: Montserrat;
   display: flex;
   justify-content: center;
-  align-items: center;
+  /* align-items: center; */
   height: 60vh;
   position: relative;
   &::before {

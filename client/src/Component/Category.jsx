@@ -11,7 +11,7 @@ const Category = () => {
           <div className="list-img">
             <Link to="/allCard/9/12" className="cat-card">
               <img
-                src="https://ik.imagekit.io/i3divn77k/Book%20Recom/WhatsApp_Image_2023-12-30_at_18.56.26_0f393ab8-removebg-preview.png?updatedAt=1704142814870"
+                src="https://ik.imagekit.io/i3divn77k/Book%20Recom/WhatsApp_Image_2024-02-02_at_00.52.51_d34f656a1706815526-removebg-preview.png?updatedAt=1706815794127"
                 alt=""
                 srcset=""
               />
@@ -21,7 +21,7 @@ const Category = () => {
           <div className="list-img">
             <Link to="/allCard/6/8" className="cat-card">
               <img
-                src="https://ik.imagekit.io/i3divn77k/Book%20Recom/WhatsApp_Image_2023-12-30_at_18.55.12_6dfa57ab-removebg-preview.png?updatedAt=1704142814883"
+                src="https://ik.imagekit.io/i3divn77k/Book%20Recom/WhatsApp_Image_2024-02-02_at_00.52.51_57b39bc91706815578-removebg-preview.png?updatedAt=1706815793951"
                 alt=""
                 srcset=""
               />
@@ -31,7 +31,7 @@ const Category = () => {
           <div className="list-img">
             <Link to="/allCard/3/5" className="cat-card">
               <img
-                src="https://ik.imagekit.io/i3divn77k/Book%20Recom/WhatsApp_Image_2023-12-30_at_18.56.26_37f49754-removebg-preview.png?updatedAt=1704142814921"
+                src="https://ik.imagekit.io/i3divn77k/Book%20Recom/WhatsApp_Image_2024-02-02_at_00.52.50_546d12061706815593-removebg-preview.png?updatedAt=1706815793981"
                 alt=""
                 srcset=""
               />
@@ -41,7 +41,7 @@ const Category = () => {
           <div className="list-img">
             <Link to="/allCard/0/2" className="cat-card">
               <img
-                src="https://ik.imagekit.io/i3divn77k/Book%20Recom/WhatsApp_Image_2023-12-30_at_18.55.45_9f5d1c7b-removebg-preview.png?updatedAt=1704142814932"
+                src="https://ik.imagekit.io/i3divn77k/Book%20Recom/WhatsApp_Image_2024-02-02_at_00.52.50_e4efec7f1706815560-removebg-preview.png?updatedAt=1706815794066"
                 alt=""
                 srcset=""
               />

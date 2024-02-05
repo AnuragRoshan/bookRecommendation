@@ -13,7 +13,7 @@
 
 .comment-head {
   font-size: 3rem;
-  text-align: right;
+  text-align: left;
   font-weight: 600;
 }
 
@@ -62,7 +62,7 @@
   margin-block: 0.5rem;
   padding: 1rem;
   width: max-content;
-  margin-left: auto;
+  margin-right: auto;
   border-radius: 1rem;
   /* width: max-content; */
   background-color: #d8d8d8;
@@ -71,16 +71,16 @@
 .user-name {
   font-size: 1.3rem;
   font-weight: 600;
-  text-align: right;
+  text-align: left;
   margin-bottom: 0.5rem;
 }
 
 .user-comment {
   font-size: 1.2rem;
-  text-align: right;
+  text-align: left;
 }
 
 .user-time {
   font-size: 0.8rem;
-  text-align: right;
+  text-align: left;
 }

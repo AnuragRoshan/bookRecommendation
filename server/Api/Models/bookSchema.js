@@ -36,7 +36,12 @@ const bookSchema = new mongoose.Schema({
             comment: String,
             date: { type: Date, default: Date.now }
         }
-    ]
+    ],
+    ratings: [{
+        rate: String,
+        username: String,
+        date: { type: Date, default: Date.now }
+    }]
 }
     ,
     { timestamps: true });

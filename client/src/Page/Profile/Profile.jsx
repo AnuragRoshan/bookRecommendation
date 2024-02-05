@@ -6,15 +6,6 @@ import {
   removeUser,
 } from "../../Features/userSlice"; // Update the path accordingly
 import { useSelector } from "react-redux";
-// import avatar from "../../assets/avatar.jpg"; // Import your avatar image
-
-// const user = {
-//   name: "John Doe",
-//   email: "john@example.com",
-//   age: 25,
-//   shortBio: "Passionate reader and technology enthusiast.",
-//   books: ["Book 1", "Book 2", "Book 3"],
-// };
 
 const Profile = () => {
   const userStatus = useSelector(selectUserStatus);
@@ -31,7 +22,7 @@ const Profile = () => {
         <div className="profile-email">Email : {user.email}</div>
         <div className="profile-email">Age : {user.age}</div>
         <div className="profile-genre">
-          Selected Genre :{" "}
+          Selected Genre : <br />
           {user.genres ? (
             user.genres.map((genre, index) => (
               <div style={{ marginInlineStart: "0rem" }} key={index}>

@@ -31,7 +31,7 @@ const Login = () => {
         if (response.status === 200) {
           window.location.href = "/";
         } else if (response.status === 201) {
-          alert("Bacche Teri Maaki Chut");
+          alert("Wrong Credentials Try Again !");
         }
       });
   };

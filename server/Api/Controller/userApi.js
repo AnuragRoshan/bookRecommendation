@@ -1,18 +1,16 @@
 const bcrypt = require('bcryptjs');
 const User = require('../Models/userSchema');
 const Book = require('../Models/bookSchema');
+const Rating = require('../Models/ratingSchema');
 const jwt = require('jsonwebtoken');
-const passport = require('passport');
+const casual = require('casual');
 const request = require("request")
-const cookieParser = require('cookie-parser');
-const auth = require('../Middleware/auth');
 
 // const {
 //     checkUserExists,
 //     checkEmailValidity,
 //     checkAgeValidity,
 // } = require('../Middleware/userReg');
-
 
 exports.loginUser = async (req, res, next) => {
     try {
@@ -36,26 +34,10 @@ exports.loginUser = async (req, res, next) => {
                 ),
                 httpOnly: true,
             };
-            // here option is used to set the cookie in the browser and if we want to change the name of the cookie we can do it here by changing the name of the cookie in the options and its code is below
-            // const options = {
-            //     expires: new Date(
-            //         Date.now() + 90 * 24 * 60 * 60 * 1000 //90 days
-            //     ),
-            //     httpOnly: true,
-            //     
-            //  and if we want to delete cookie in logout api we can do it by setting the maxAge to 1 like below
-            //     maxAge: 1
-            // };
-
-
             res.status(200).cookie("jwt", token, options).json({ msg: 'User Logged In Successfully', token, user });
         } else {
             res.status(201).json({ msg: "Invalid Creds" })
         }
-
-        // return res.status(200).json({ msg: 'User Logged In Successfully', user });
-        // res.status(400).json({ msg: "Invalid Creds" })
-
 
     } catch (error) {
         console.log(error);
@@ -84,16 +66,43 @@ exports.logout = async (req, res, next) => {
 
 exports.updateDb = async (req, res, next) => {
     try {
-        const allUser = await Book.find();
-        let count = 0;
+        const books = await Book.find({}, 'isbn');
 
-        const updatePromises = allUser.map(async (book, index) => {
-            await book.save();
-        });
+        // return res.status(200).json(books)
+        await Rating.deleteMany({});
 
-        await Promise.all(updatePromises);
+        const dummyData = [];
 
-        return res.status(200).json({ count: count });
+        for (let i = 0; i < 3000; i++) {
+            const username = (casual.username + "@gmail.com").toLowerCase();
+
+            const isbn = books[Math.floor(Math.random() * books.length)].isbn;
+            const rating = (Math.floor(Math.random() * 5) + 1) + (Math.floor(Math.random() * 10) + 1) * 0.1;
+            // console.log(isbn);
+            dummyData.push({
+                username,
+                isbn,
+                rating,
+            });
+        }
+
+        for (let i = 0; i < 577; i++) {
+            const username = (casual.username + "@gmail.com").toLowerCase();
+
+            const isbn = books[i].isbn;
+            const rating = (Math.floor(Math.random() * 5) + 1) + (Math.floor(Math.random() * 10) + 1) * 0.1;
+            // console.log(isbn);
+            dummyData.push({
+                username,
+                isbn,
+                rating,
+            });
+        }
+
+        // Insert dummy data into the Rating collection
+        await Rating.insertMany(dummyData);
+        return res.status(200).json({ msg: 'Database updated successfully' });
+
     } catch (error) {
         console.error(error);
         return res.status(500).json({ msg: 'Error While updating' });
@@ -339,9 +348,19 @@ exports.getRecom = async (req, res, next) => {
         res.send(body); //Display the response on the website
     });
     // res.send(book);
-
 };
 
+exports.getRecom2 = async (req, res, next) => {
+    const { book } = req.params;
+    request(`http://127.0.0.1:5000/get_collab_recommendations?book_name=` + book, function (error, response, body) {
+        console.error('error:', error); // Print the error
+        console.log('statusCode:', response && response.statusCode); // Print the response status code if a response was received
+        console.log('body:', body); // Print the data received
+        res.send(body); //Display the response on the website
+    });
+    // log(book)
+    // res.send(typeof book);
+};
 
 exports.getSearch = async (req, res, next) => {
     const { bookName } = req.params;
@@ -364,3 +383,55 @@ exports.getSearch = async (req, res, next) => {
         return res.status(500).json({ error: 'Internal Server Error' });
     }
 };
+
+exports.getBooks = async (req, res, next) => {
+    const { arr } = req.body;
+    try {
+        // Use the find method to retrieve books with ISBNs matching the array indices
+        const books = await Book.find({ isbn: { $in: arr } });
+
+        if (books.length === 0) {
+            return res.status(404).json({ error: 'No books found for the provided ISBNs.' });
+        }
+
+        // Return the array of books in the response
+        res.status(200).json({ books });
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ error: 'Internal Server Error' });
+    }
+
+}
+
+exports.setRating = async (req, res, next) => {
+    const { bookIsbn, username, rating } = req.body;
+    console.log(bookIsbn, username, rating);
+
+    try {
+        // Find the book with the given ISBN
+        const book = await Book.findOne({ isbn: bookIsbn })
+        // return res.status(200).json(book);
+
+        if (!book) {
+            return res.status(404).json({ error: 'Book not found' });
+        }
+
+        const existingRatingIndex = await book.ratings.findIndex((r) => r.username === username);
+
+        // Update or add a new rating entry
+        existingRatingIndex !== -1
+            ? (book.ratings[existingRatingIndex].rate = rating)
+            : book.ratings.unshift({ username, rate: rating });
+
+        // Save the updated book
+        await book.save();
+
+
+
+        res.json({ message: 'Rating updated successfully' });
+    } catch (error) {
+        console.error('Error setting rating:', error);
+        res.status(500).json({ error: 'Internal server error' });
+    }
+
+}

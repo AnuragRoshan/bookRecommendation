@@ -4,6 +4,7 @@ import axios from "axios";
 import { useSelector } from "react-redux";
 import { selectUserStatus, selectUsers } from "../Features/userSlice";
 import { api } from "../Assist/env";
+import Bookmark from "./Bookmark";
 
 const CardComponent = ({ book }) => {
   const users = useSelector(selectUsers);
@@ -14,39 +15,6 @@ const CardComponent = ({ book }) => {
     }
     return text;
   }
-
-  const [isBookmarked, setisBookmarked] = useState(false);
-  const [isLoading, setIsLoading] = useState(false);
-  const [formData, setFormData] = useState({
-    username: users.email,
-    bookId: book._id,
-  });
-
-  useEffect(() => {
-    if (book.like && book.like.includes(`${users.email}`)) {
-      setisBookmarked(true);
-    }
-    // console.log("SHoot Only in beginning");
-  }, []);
-
-  const setisBookmark = async () => {
-    setIsLoading(true);
-    await axios.post(`${api}toggleBookmark`, formData).then((response) => {
-      setIsLoading(false);
-      console.log(response);
-    });
-    // console.log(formData);
-  };
-
-  const toggleTrue = () => {
-    setisBookmarked(true);
-    setisBookmark();
-  };
-
-  const toggleFalse = () => {
-    setisBookmarked(false);
-    setisBookmark();
-  };
 
   return (
     <div>
@@ -64,21 +32,21 @@ const CardComponent = ({ book }) => {
           </div>
         </Link>
         <div className="book-detail">
-          <div className="book-name">{truncateText(book.name, 22)}</div>
-          <div className="book-author">{book.author}</div>
-          {book.rating ? (
+          {/* <div className="book-name">{truncateText(book.name, 22)}</div> */}
+          {/* <div className="book-author">{book.author}</div> */}
+          {/* {book.rating ? (
             <>
               <div className="book-genre">Rating : {book.rating}/5</div>
             </>
           ) : (
             <></>
-          )}
+          )} */}
 
-          <div className="book-genre">
+          {/* <div className="book-genre">
             Age : Between {book.age[0]} and {book.age[2]}
             {book.age[3]}
           </div>
-          <div className="book-genre">ISBN : {book.isbn}</div>
+          <div className="book-genre">ISBN : {book.isbn}</div> */}
           <div
             // className="book-bookmark"
             style={{
@@ -91,39 +59,7 @@ const CardComponent = ({ book }) => {
           >
             {userStatus ? (
               <>
-                {isBookmarked ? (
-                  <>
-                    {isLoading ? (
-                      <>
-                        <div style={{ cursor: "not-allowed" }}>
-                          <i class="fa-solid fa-bookmark"></i>
-                        </div>
-                      </>
-                    ) : (
-                      <>
-                        <div onClick={toggleFalse}>
-                          <i class="fa-solid fa-bookmark"></i>
-                        </div>
-                      </>
-                    )}
-                  </>
-                ) : (
-                  <>
-                    {isLoading ? (
-                      <>
-                        <div style={{ cursor: "not-allowed" }}>
-                          <i class="fa-regular fa-bookmark"></i>
-                        </div>
-                      </>
-                    ) : (
-                      <>
-                        <div onClick={toggleTrue}>
-                          <i class="fa-regular fa-bookmark"></i>
-                        </div>
-                      </>
-                    )}
-                  </>
-                )}
+                <Bookmark book={book} />
               </>
             ) : (
               <></>

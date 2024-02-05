@@ -24,7 +24,7 @@
 }
 
 .cat-head {
-  text-align: right;
+  text-align: left;
   padding-block-start: 4rem;
   padding-inline: 2rem;
   font-size: 2.4rem;
@@ -69,14 +69,15 @@
   position: absolute;
   bottom: 0;
   top: 0;
-  width: 100%;
+  width: 90%;
   height: 40%;
   display: flex;
   justify-content: center;
   align-items: center;
   padding: 1rem;
-  font-size: 4.5rem;
+  font-size: 5rem;
   font-weight: 600;
   text-align: center;
   color: #242424;
+  font-family: Noticia Text;
 }

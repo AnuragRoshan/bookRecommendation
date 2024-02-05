@@ -62,8 +62,13 @@ body {
   font-size: 1.3rem;
   text-align: center;
   display: flex;
+  flex-wrap: wrap;
   justify-content: center;
   align-items: center;
   font-weight: 600;
   margin-block-end: 1rem;
+  padding-inline: 1rem;
+}
+
+.profile-genre :nth-child(1) {
 }

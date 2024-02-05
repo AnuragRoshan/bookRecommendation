@@ -102,7 +102,7 @@ const Signup = () => {
           />
 
           {/* Genre selection */}
-          <select onChange={handleGenreSelect} value={formData.selectedGenres}>
+          {/* <select onChange={handleGenreSelect} value={formData.selectedGenres}>
             <option value="" selected>
               Select Genre
             </option>
@@ -111,7 +111,7 @@ const Signup = () => {
                 {genre}
               </option>
             ))}
-          </select>
+          </select> */}
 
           {/* Display selected genres */}
           <div>

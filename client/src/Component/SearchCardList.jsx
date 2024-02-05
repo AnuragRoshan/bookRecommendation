@@ -4,10 +4,12 @@ import "../Styles/cardlist.css";
 import axios from "axios";
 import { Link, useParams } from "react-router-dom";
 import CardComponent from "./CardComponent";
+import { api } from "../Assist/env";
 
 const SearchCardList = (props) => {
   const { searchInput } = useParams();
   const { number1, number2 } = splitNumbers(props.detail);
+  const { currentStatus, setCurrentStatus } = useState("Loading...");
   const dynamicStyles = {
     "--primary-color": `#${props.color}`, // Set your dynamic color here
   };
@@ -21,12 +23,18 @@ const SearchCardList = (props) => {
 
   const getData = async () => {
     // console.log(id);
-    const apiUrl = `{api}search/${searchInput}`;
+    const apiUrl = `${api}search/${searchInput}`;
 
     try {
-      const response = await axios.get(apiUrl);
-      console.log(response.data.books);
-      setBooks(response.data.books || []); // Ensure that response.data is an array, or default to an empty array
+      await axios.get(apiUrl).then((response) => {
+        {
+          setBooks(response.data.books || []);
+          if (response.data.books.length === 0) {
+            setCurrentStatus("No results found");
+          }
+        }
+      });
+      // console.log(response.data.books); // Ensure that response.data is an array, or default to an empty array
     } catch (error) {
       console.error("Error fetching data:", error);
     }
@@ -61,7 +69,7 @@ const SearchCardList = (props) => {
             div
             style={{ textAlign: "center", padding: "5rem", fontWeight: "600" }}
           >
-            No result found{" "}
+            {currentStatus}
           </div>
         )}
       </div>
