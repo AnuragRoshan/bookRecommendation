@@ -9,7 +9,7 @@ import Detail from "./Page/Detail/Detail";
 import Footer from "./Component/Footer";
 import Profile from "./Page/Profile/Profile";
 import AllCardList from "./Page/AllCardList.jsx/AllCardList";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { api } from "./Assist/env";
 import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
