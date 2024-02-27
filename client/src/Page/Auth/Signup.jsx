@@ -90,6 +90,7 @@ const Signup = () => {
           />
           <input
             type="number"
+            min="0"
             placeholder="Age"
             value={formData.age}
             onChange={(e) => handleInputChange("age", e.target.value)}
